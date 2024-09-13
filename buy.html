@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,11 +73,16 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        h1, h2, h3, h4 {
+        h1,
+        h2,
+        h3,
+        h4 {
             color: #333;
         }
 
-        input[type="text"] {
+        input[type="text"],
+        input[type="email"],
+        input[type="number"] {
             width: 100%;
             padding: 10px;
             margin-top: 10px;
@@ -92,46 +98,103 @@
             border-radius: 8px;
             text-align: center;
         }
+
+        .payment-method {
+            margin-top: 30px;
+        }
+
+        .payment-button {
+            padding: 15px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .payment-button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
+
 <body>
 
-<header>
-    <div class="container header-container">
-        <div class="sale-image left-image">
-            <img src="99.png" alt="Sale for $99">
+    <header>
+        <div class="container header-container">
+            <div class="sale-image left-image">
+                <img src="99.png" alt="Sale for $99">
+            </div>
+            <div class="header-content">
+                <h1>VendayX</h1>
+                <p>The New UI UX POS For Your Operations</p>
+            </div>
+            <div class="sale-image right-image">
+                <img src="pos.png" alt="POS Image">
+            </div>
         </div>
-        <div class="header-content">
-            <h1>VendayX</h1>
-            <p>The New UI UX POS For Your Operations</p>
+    </header>
+
+    <div class="container content">
+        <h1>PURCHASE INFORMATION FOR BUYING THE SOFTWARE</h1>
+        <h2>HERE YOU SHOULD ENTER YOUR INFORMATION</h2>
+
+        <!-- Cryptocurrency Payment Section -->
+        <h1>Buy with Cryptocurrencies</h1>
+        <p>This is the wallet number you can use to purchase the amount via scanning this QR code or copying the code
+            and pasting it into the screen.</p>
+        <h3>The Wallet Number</h3>
+        <input type="text" placeholder="Enter Wallet Number">
+
+        <section>
+            <h3>Code QR</h3>
+            <h4>Scan the Code QR here</h4>
+            <!-- Image for QR Code (Add the actual image source) -->
+            <img src="qrcode.png" alt="QR Code" style="max-width: 150px;">
+        </section>
+
+        <p>AFTER PURCHASE, YOU CAN PASTE THE BILLING NUMBER AND UPLOAD THE BILLING SCREENSHOT BELOW</p>
+
+        <!-- PayPal Payment Section -->
+        <h1>Buy with PayPal</h1>
+        <p>Click the button below to proceed with PayPal:</p>
+        <div id="paypal-button-container"></div>
+
+        <!-- Credit Card Payment Section -->
+        <div class="payment-method">
+            <h1>Buy with Credit Card</h1>
+            <p>Fill out the information below to purchase with a credit card.</p>
+            <input type="text" placeholder="Cardholder Name">
+            <input type="number" placeholder="Card Number">
+            <input type="text" placeholder="Expiration Date (MM/YY)">
+            <input type="number" placeholder="CVV">
+            <input type="email" placeholder="Email Address">
+            <button class="payment-button">Submit Payment</button>
         </div>
-        <div class="sale-image right-image">
-            <img src="pos.png" alt="POS Image">
-        </div>
+
+        <!-- Stripe Payment Section -->
+        <h1>Buy with Stripe</h1>
+        <p>Click the button below to proceed with Stripe:</p>
+        <button class="payment-button" id="stripe-button">Pay with Stripe</button>
+
     </div>
-</header>
 
-<div class="container content">
-    <h1>PURCHASE INFORMATION FOR BUYING THE SOFTWARE</h1>
-    <h2>HERE YOU SHOULD ENTER YOUR INFORMATION</h2>
+    <!-- PayPal and Stripe Scripts -->
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        // PayPal Button Rendering
+        paypal.Buttons().render('#paypal-button-container');
 
-    <h1>Buy with Cryptocurrencies</h1>
-    <p>This is the wallet number you can use to purchase the amount via scanning this QR code or copying the code and pasting it into the screen.</p>
-    <h3>The Wallet Number</h3>
-    <input type="text" placeholder="Enter Wallet Number">
-    
-    <section>
-        <h3>Code QR</h3>
-        <h4>Scan the Code QR here</h4>
-        <!-- Image for QR Code (Add the actual image source) -->
-        <img src="qrcode.png" alt="QR Code" style="max-width: 150px;">
-    </section>
-
-    <p>AFTER PURCHASE, YOU CAN PASTE THE BILLING NUMBER AND UPLOAD THE BILLING SCREENSHOT BELOW</p>
-
-    <h1>Buy with Credit Card</h1>
-    <p>Fill out the information to purchase with a credit card.</p>
-</div>
-
+        // Stripe API Integration
+        const stripe = Stripe('YOUR_STRIPE_PUBLIC_KEY');
+        document.getElementById('stripe-button').addEventListener('click', function () {
+            // Logic to handle Stripe checkout (e.g., create a checkout session)
+            alert("Stripe payment integration goes here.");
+        });
+    </script>
 </body>
+
 </html>
